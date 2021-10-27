@@ -1,8 +1,8 @@
-import com.example.Feline;
+package com.example;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import com.example.Lion;
 
 import java.util.List;
 

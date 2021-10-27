@@ -1,7 +1,6 @@
-import org.junit.Test;
-import com.example.Cat;
-import com.example.Feline;
+package com.example;
 
+import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +25,5 @@ public class CatClassTest {
         assertEquals(expectedFoodList,actualFoodList);
 
     }
-
-
 
 }
