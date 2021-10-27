@@ -61,7 +61,7 @@ public class LionClassTest {
         assertEquals(expectedAnswer, lionForParametersTest.doesHaveMane());
     }
 
-    @Test
+    @Test //отдельный тест ветки, которую нельзя поместить в единую параметризацию
     public void lionConstructorThrowsExceptionWithMessage() {
         try {
             Lion exceptionLion = new Lion("Not sex", feline);
@@ -69,21 +69,5 @@ public class LionClassTest {
             assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
         }
     }
-//    @Mock
-//    Lion lion;
 //
-//
-//    @Test
-//    public void getKittensMethodWorks(){
-//        lion.getKittens();
-//        Mockito.verify(lion, Mockito.times(1)).getKittens();
-//    }
-//
-//    @Test
-//    public void getFoodMethodWorks () throws Exception {
-//        lion.getFood();
-//        Mockito.verify(lion, Mockito.times(1)).getFood();
-//
-//    }
-
 }

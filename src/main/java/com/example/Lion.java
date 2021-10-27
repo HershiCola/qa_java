@@ -5,7 +5,7 @@ import java.util.List;
 public class Lion {
 
     boolean hasMane;
-    private Feline feline; // п.3, изоляция класса с помощью DI
+    private Feline feline; // п.3 задания, изоляция класса с помощью DI
 
     public Lion(String sex, Feline feline) throws Exception {
         if ("Самец".equals(sex)) {
