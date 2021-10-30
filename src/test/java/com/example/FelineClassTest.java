@@ -1,53 +1,38 @@
 package com.example;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
+
 public class FelineClassTest {
 
-    private final int kittensCount;
-    private final int expectedKittensCount;
-
-    public FelineClassTest (int kittensCount, int expectedKittensCount) {
-        this.kittensCount = kittensCount;
-        this.expectedKittensCount = expectedKittensCount;
-    }
-    Feline feline = new Feline();
 
     @Test
-    public void eatMeatMethodWorks() throws Exception {
-        List<String> actualFoodList = feline.eatMeat();
-        List<String> expectedFoodList = List.
-                of("Животные", "Птицы", "Рыба");
-        assertEquals(expectedFoodList,actualFoodList);
+    public void eatMeatMethodWorks()  {
+        Feline feline = new Feline(); //отдельный объект для изоляции теста
+        try {
+            List<String> actualFoodList = feline.eatMeat();
+            List<String> expectedFoodList = List.
+                    of("Животные", "Птицы", "Рыба");
+            assertEquals(expectedFoodList,actualFoodList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     public void getFamilyMethodWorks() {
+        Feline feline = new Feline(); //отдельный объект для изоляции теста
         assertEquals("Кошачьи", feline.getFamily());
     }
 
     @Test
     public void getKittensMethodWithNoArgumentWorks(){
+        Feline feline = new Feline(); //отдельный объект для изоляции теста
         assertEquals(1,feline.getKittens());
     }
 
-    @Parameterized.Parameters
-    public static Object[][] getSumData() {
-        return new Object[][] {
-                { 5, 5},
-                { 2, 2},
-                {0, 0},
-        };
-    }
-    @Test
-    public void getKittensMethodWithArgumentsWorks() {
-        int actual = feline.getKittens(kittensCount);
-        assertEquals(expectedKittensCount, actual);
-    }
-}
+   }
 

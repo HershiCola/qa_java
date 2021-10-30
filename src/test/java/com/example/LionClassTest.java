@@ -1,73 +1,58 @@
 package com.example;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
+import org.mockito.Mock;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
 public class LionClassTest {
 
 
-    private final String lionSex;
-    private final boolean expectedAnswer;
+    @Mock
+    Feline mockFeline;
 
-    public LionClassTest (String lionSex, boolean expectedAnswer ) {
-        this.lionSex = lionSex;
-        this.expectedAnswer = expectedAnswer;
-    }
+    @Test
+    public void getKittensMethodWithNoArgumentWorks() {
 
-    Feline feline = new Feline();
-    Lion lion;
-
-    {   //вынужденная обработка, так как сам конструктор класса может выбросить исключение
-        try {
-            lion = new Lion ("Самка", feline);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Feline feline = new Feline();
+        {   //вынужденная обработка, так как сам конструктор класса может выбросить исключение
+            try {
+                Lion lion = new Lion("Самка", feline);
+                //если здесь использовать мок feline, тест проходит, но в консоль валятся NullPointerException
+                //поэтому оставил реальный feline
+                assertEquals(1, lion.getKittens());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-
     @Test
-    public void getKittensMethodWithNoArgumentWorks(){
-        assertEquals(1,lion.getKittens());
-    }
+    public void getFoodMethodWorks()  {
 
-    @Test
-    public void getFoodMethodWorks() throws Exception {
-        List<String> actualFoodList = lion.getFood();
-        List<String> expectedFoodList = List.
-                of("Животные", "Птицы", "Рыба");
-        assertEquals(expectedFoodList,actualFoodList);
-
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getSumData() {
-        return new Object[][] {
-                {"Самец", true},
-                {"Самка", false},
-        };
-    }
-
-    @Test
-    public void doesHaveManeMethodWorks() throws Exception {
-
-        Lion lionForParametersTest = new Lion(lionSex, feline);
-        assertEquals(expectedAnswer, lionForParametersTest.doesHaveMane());
-    }
-
-    @Test //отдельный тест ветки, которую нельзя поместить в единую параметризацию
-    public void lionConstructorThrowsExceptionWithMessage() {
-        try {
-            Lion exceptionLion = new Lion("Not sex", feline);
-        } catch (Exception e) {
-            assertEquals("Используйте допустимые значения пола животного - самей или самка", e.getMessage());
+        Feline feline = new Feline();
+        {   //вынужденная обработка, так как сам конструктор класса может выбросить исключение
+            try {
+                Lion lion = new Lion("Самка", feline);
+                //если здесь использовать мок feline, тест проходит, но в консоль валятся NullPointerException
+                //поэтому оставил реальный feline
+                List<String> actualFoodList = lion.getFood();
+                List<String> expectedFoodList = List.
+                        of("Животные", "Птицы", "Рыба");
+                assertEquals(expectedFoodList, actualFoodList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-//
+
+    //отдельный тест ветки, которую нельзя поместить в единую параметризацию
+    //для тестирования ветки с выбрасыванием исключения использую метод, разобранный на вебинаре с преподавателями
+
+    @Test(expected = Exception.class)
+    public void lionConstructorThrowsExceptionWithMessage() throws Exception {
+        //можно использовать мок, так как поле hasMane класса Lion не зависит от объекта feline
+        Lion exceptionLion = new Lion("Not lion sex", mockFeline);
+    }
 }
+
